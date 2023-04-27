@@ -1,0 +1,123 @@
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+const EmpCreate = () => {
+  const [name, setName] = useState("");
+  const [alt, setAlt] = useState("");
+  const [uname, setUname] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [active, setActive] = useState(true);
+
+  const navigate = useNavigate();
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    const hostdata = { name, alt, uname, pwd, active };
+    //console.log({ name, alt, uname, pwd, active });
+
+    fetch("http://localhost:8000/employee", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(hostdata),
+    })
+      .then((res) => {
+        alert("Created successfully.");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+  return (
+    <div>
+      <div className="row" style={{ marginTop: "40px" }}>
+        <div className="offset-lg-3 col-lg-6">
+          <form className="container" onSubmit={handlesubmit}>
+            <div className="card" style={{ textAlign: "left" }}>
+              <div className="card-title">
+                <h2 className="alt">Create Additional Host </h2>
+              </div>
+              <div className="card-body">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className="form-group">
+                      <label>Host Name</label>
+                      <input
+                        required
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        className="form-control"
+                      ></input>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12">
+                    <div className="form-group">
+                      <label>Alternative Host Name</label>
+                      <input
+                        required
+                        value={alt}
+                        onChange={(e) => setAlt(e.target.value)}
+                        className="form-control"
+                      ></input>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12">
+                    <div className="form-group">
+                      <label>Alternative UserName</label>
+                      <input
+                        required
+                        value={uname}
+                        onChange={(e) => setUname(e.target.value)}
+                        className="form-control"
+                      ></input>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12">
+                    <div className="form-group">
+                      <label>Alternative User Password</label>
+                      <input
+                        required
+                        value={pwd}
+                        onChange={(e) => setPwd(e.target.value)}
+                        type="password"
+                        className="form-control"
+                      ></input>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12">
+                    <div className="form-check">
+                      <input
+                        checked={active}
+                        onChange={(e) => setActive(e.target.checked)}
+                        type="checkbox"
+                        className="form-check-input"
+                      ></input>
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12">
+                    <div className="form-group ">
+                      <button type="submit" className="btn btn-success">
+                        Create
+                      </button>
+                      <NavLink to="/" className="btn btn-danger">
+                        Back
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EmpCreate;
