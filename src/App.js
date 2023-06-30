@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Emplisting from "./Emplisting";
 import EmpCreate from "./EmpCreate";
 import EmpEdit from "./EmpEdit";
+import Help from "./Help";
+
+import Accordions from "./Accordion";
 
 function App() {
   return (
@@ -12,6 +15,8 @@ function App() {
           <Route path="/" element={<Emplisting />} />
           <Route path="/employee/create" element={<EmpCreate />} />
           <Route path="/employee/edit/:empid" element={<EmpEdit />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/accordion" element={<Accordions />} />
         </Routes>
       </Router>
     </div>
